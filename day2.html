@@ -1010,6 +1010,60 @@
         "71 73 75 76 79 81 84 86",
       ];
 
+      let reportsWork = [...reports];
+      let selectionFirst = reportsWork.filter((report) => {
+        report = report.split(" ");
+        if (IsValid(report)) {
+          return true;
+        } else {
+          let reportCopy = [...report];
+          for (let i = 0; i < reportCopy.length; i++) {
+            let newReport = [...reportCopy];
+            newReport.splice(i, 1);
+            if (IsValid(newReport)) {
+              return true;
+            }
+          }
+        }
+      });
+      console.log(selectionFirst);
+
+      function IsValid(arr) {
+        console.log(arr);
+        // Crea una copia del report e ordina in ordine crescente
+        let reportSort = [...arr].sort((a, b) => a - b);
+
+        // Crea una copia del report e ordina in ordine decrescente
+        let reportReverse = [...arr].sort((a, b) => b - a);
+        if (
+          arr.toString() == reportSort.toString() ||
+          arr.toString() == reportReverse.toString()
+        ) {
+          return validation(arr);
+        }
+        return false;
+      }
+      function validation(reportSplit) {
+        let isValid = true;
+
+        for (let i = 0; i < reportSplit.length - 1; i++) {
+          const element = reportSplit[i];
+          const second = reportSplit[i + 1];
+
+          // Calcola la differenza assoluta tra i due numeri
+          let dif = Math.abs(element - second);
+
+          // Se la differenza non è tra 0 e 3, il report non è valido o il counter maggiore di 1
+          if (!(dif >= 1 && dif <= 3)) {
+            isValid = false;
+            break;
+          }
+        }
+
+        return isValid;
+      }
+
+      /*
       // Filtra i report per selezionare solo quelli che sono ordinati o inversamente ordinati
       let validsReports = reports.filter((report) => {
         // Trasformo ogni elemento in un array di stringhe
@@ -1035,6 +1089,7 @@
       // Filtra i report validi per verificare se la differenza tra i numeri consecutivi è compresa tra 1 e 3
       let workReport = validsReports.filter((report) => {
         let x = report.split(" ");
+
         let isValid = true;
 
         for (let i = 0; i < x.length - 1; i++) {
@@ -1044,7 +1099,7 @@
           // Calcola la differenza assoluta tra i due numeri
           let dif = Math.abs(element - second);
 
-          // Se la differenza non è tra 1 e 3, il report non è valido
+          // Se la differenza non è tra 0 e 3, il report non è valido o il counter maggiore di 1
           if (!(dif >= 1 && dif <= 3)) {
             isValid = false;
             break;
@@ -1052,9 +1107,7 @@
         }
 
         return isValid;
-      });
-
-      console.log(workReport);
+      }); */
     </script>
   </body>
 </html>
