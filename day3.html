@@ -19,12 +19,11 @@
 
       while (indexStart !== -1) {
         let indexEnd = tex.indexOf(")", indexStart);
-        console.log(indexEnd);
 
         if (indexEnd !== -1) {
           // Aggiungi la parte della stringa tra "m" e ")"
           let mul = workTex.slice(indexStart, indexEnd + 1);
-          console.log(mul);
+
           result.push(mul);
 
           indexStart = tex.indexOf("m", indexEnd + 1);
@@ -32,6 +31,35 @@
           break;
         }
       }
+
+      let resultFilter = result.filter((x) => x.length >= 8 && x.length <= 12);
+      console.log(resultFilter);
+      let resultFilterMach = [];
+      resultFilter.forEach((y) => {
+        let change = y.indexOf(",");
+        if (change != -1) {
+          y[change] = "*";
+        }
+        let start = y.indexOf("(");
+        let end = y.indexOf(")");
+        resultFilterMach.push(y.slice(start + 1, end));
+      });
+      console.log(resultFilterMach);
+      let resultValid = resultFilterMach.filter((x) => x.includes("*"));
+
+      let sum = 0;
+      resultValid.forEach((z) => {
+        let operator = z.indexOf("*");
+        let primo = z.slice(0, operator);
+        console.log(primo.join().replaceAll(",", ""));
+        primo = primo.join().replaceAll(",", "");
+        let secondo = z.slice(operator + 1, z.length);
+        console.log(secondo.join().replaceAll(",", ""));
+        secondo = secondo.join().replaceAll(",", "");
+        let val = primo * secondo;
+        sum += val;
+      });
+      console.log(sum);
     </script>
   </body>
 </html>
