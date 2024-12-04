@@ -12,7 +12,7 @@
 
       let workTex = [...tex];
       console.log(workTex);
-      const elementRow = 100;
+      const elementRow = 140;
       const collum = workTex.length / elementRow;
       console.log("colonne" + collum);
       let grid = [];
@@ -21,84 +21,103 @@
         grid.push(workTex.slice(index * elementRow, (index + 1) * elementRow));
       }
       console.log(grid);
-      //eseguo un doppio ciclo sia per le righe che per le colonne
-      for (let i = 0; i < grid.length; i++) {
-        for (let e = 0; e < grid[i].length; e++) {
-          grid[i][e];
-          if (grid[i][e] == "X") {
-            if (e < grid[i].length - 3) {
-              let or =
-                grid[i][e] + grid[i][e + 1] + grid[i][e + 2] + grid[i][e + 3];
-              if (or == "XMAS") {
-                cont++;
-              }
-            }
 
-            if (e >= 3) {
-              let orR =
-                grid[i][e] + grid[i][e - 1] + grid[i][e - 2] + grid[i][e - 3];
-              if (orR == "XMAS") {
-                cont++;
-              }
-            }
-            if (i < grid.length - 3) {
-              let ver =
-                grid[i][e] + grid[i + 1][e] + grid[i + 2][e] + grid[i + 3][e];
-              if (ver == "XMAS") {
-                cont++;
-              }
-            }
-            if (i >= 3) {
-              let verR =
-                grid[i][e] + grid[i - 1][e] + grid[i - 2][e] + grid[i - 3][e];
-              if (verR == "XMAS") {
-                cont++;
-              }
-            }
-            if (e < grid[i].length - 3 && i < grid.length - 3) {
-              let r1 =
-                grid[i][e] +
-                grid[i + 1][e + 1] +
-                grid[i + 2][e + 2] +
-                grid[i + 3][e + 3];
-              if (r1 == "XMAS") {
-                cont++;
-              }
-            }
-            if (e >= 3 && i >= 3) {
-              let r1R =
-                grid[i][e] +
-                grid[i - 1][e - 1] +
-                grid[i - 2][e - 2] +
-                grid[i - 3][e - 3];
-              if (r1R == "XMAS") {
-                cont++;
-              }
-            }
-            if (e >= 3 && i < grid.length - 3) {
-              let r2 =
-                grid[i][e] +
-                grid[i + 1][e - 1] +
-                grid[i + 2][e - 2] +
-                grid[i + 3][e - 3];
-              if (r2 == "XMAS") {
-                cont++;
-              }
-            }
-            if (e < grid[i].length - 3 && i >= 3) {
-              let r2R =
-                grid[i][e] +
-                grid[i - 1][e + 1] +
-                grid[i - 2][e + 2] +
-                grid[i - 3][e + 3];
-              if (r2R == "XMAS") {
-                cont++;
-              }
+      for (let i = 1; i < grid.length - 1; i++) {
+        for (let e = 1; e < grid[i].length - 1; e++) {
+          if (grid[i][e] == "A") {
+            if (
+              (grid[i + 1][e + 1] == "M" || grid[i + 1][e + 1] == "S") &&
+              (grid[i - 1][e - 1] == "M" || grid[i - 1][e - 1] == "S") &&
+              grid[i + 1][e + 1] != grid[i - 1][e - 1] &&
+              (grid[i + 1][e - 1] == "M" || grid[i + 1][e - 1] == "S") &&
+              (grid[i - 1][e + 1] == "M" || grid[i - 1][e + 1] == "S") &&
+              grid[i + 1][e - 1] != grid[i - 1][e + 1]
+            ) {
+              cont++;
             }
           }
         }
       }
       console.log(cont);
+
+      //eseguo un doppio ciclo sia per le righe che per le colonne
+      /*     for (let i = 0; i < grid.length; i++) {
+      for (let e = 0; e < grid[i].length; e++) {
+
+           if (grid[i][e] == "X") {
+             if (e < grid[i].length - 3) {
+               let or =
+                 grid[i][e] + grid[i][e + 1] + grid[i][e + 2] + grid[i][e + 3];
+               if (or == "XMAS") {
+                 cont++;
+               }
+             }
+
+             if (e >= 3) {
+               let orR =
+                 grid[i][e] + grid[i][e - 1] + grid[i][e - 2] + grid[i][e - 3];
+               if (orR == "XMAS") {
+                 cont++;
+               }
+             }
+             if (i < grid.length - 3) {
+               let ver =
+                 grid[i][e] + grid[i + 1][e] + grid[i + 2][e] + grid[i + 3][e];
+               if (ver == "XMAS") {
+                 cont++;
+               }
+             }
+             if (i >= 3) {
+               let verR =
+                 grid[i][e] + grid[i - 1][e] + grid[i - 2][e] + grid[i - 3][e];
+               if (verR == "XMAS") {
+                 cont++;
+               }
+             }
+             if (e < grid[i].length - 3 && i < grid.length - 3) {
+               let r1 =
+                 grid[i][e] +
+                 grid[i + 1][e + 1] +
+                 grid[i + 2][e + 2] +
+                 grid[i + 3][e + 3];
+               if (r1 == "XMAS") {
+                 cont++;
+               }
+             }
+             if (e >= 3 && i >= 3) {
+               let r1R =
+                 grid[i][e] +
+                 grid[i - 1][e - 1] +
+                 grid[i - 2][e - 2] +
+                 grid[i - 3][e - 3];
+               if (r1R == "XMAS") {
+                 cont++;
+               }
+             }
+             if (e >= 3 && i < grid.length - 3) {
+               let r2 =
+                 grid[i][e] +
+                 grid[i + 1][e - 1] +
+                 grid[i + 2][e - 2] +
+                 grid[i + 3][e - 3];
+               if (r2 == "XMAS") {
+                 cont++;
+               }
+             }
+             if (e < grid[i].length - 3 && i >= 3) {
+               let r2R =
+                 grid[i][e] +
+                 grid[i - 1][e + 1] +
+                 grid[i - 2][e + 2] +
+                 grid[i - 3][e + 3];
+               if (r2R == "XMAS") {
+                 cont++;
+               }
+             }
+           }
+         }
+       }
+       console.log(cont); */
     </script>
   </body>
 </html>
