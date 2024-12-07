@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day7</title>
+  </head>
+  <body>
+    <script>
+      let num = [
+        "190:10 19",
+        "3267:81 40 27",
+        "83:17 5",
+        "156:15 6",
+        "7290:6 8 6 15",
+        "161011:16 10 13",
+        "192:17 8 14",
+        "21037:9 7 18 13",
+        "292:11 6 16 20",
+      ];
+      let cont = 0;
+      let arrayNum = [];
+      num.forEach((x) => arrayNum.push(x.split(":")));
+      console.log(arrayNum);
+      for (let i = 0; i < arrayNum.length; i++) {
+        let element = arrayNum[i];
+        let result = element[0];
+        let match = [...element[1].split(" ")];
+        let operator = ["+", "*"];
+        console.log(result, match);
+        possiblemachs = [];
+        for (let g = 0; g < operator.length; g++) {
+          let ele = operator[g];
+          possiblemachs.push(match.join(ele));
+        }
+
+        for (let e = 0; e < possiblemachs.length; e++) {
+          let t = possiblemachs[e];
+          while (t.includes("+")) {
+            t = t.replace("+", "*");
+            if (!possiblemachs.includes(t)) {
+              possiblemachs.push(t);
+            }
+          }
+          while (t.includes("*")) {
+            t = t.replace("*", "+");
+            if (!possiblemachs.includes(t)) {
+              possiblemachs.push(t);
+            }
+          }
+        }
+        console.log(possiblemachs);
+      }
+    </script>
+  </body>
+</html>
